@@ -17,19 +17,18 @@
         /* Adjust as needed */
       }
 
-      .folder-link {
-        display: block;
-        margin-bottom: 10px;
-        color: #3498db;
-        cursor: pointer;
-      }
-
+      .folder-link,
       .file-link {
         display: block;
         margin-bottom: 10px;
-        color: #ecf0f1;
         cursor: pointer;
         text-decoration: underline;
+        color: inherit;
+      }
+
+      .folder-link:hover,
+      .file-link:hover {
+        color: #3498db; /* Change the color on hover if desired */
       }
     </style>
   </head>
@@ -52,28 +51,26 @@
             if (item.name.toLowerCase() === "readme.md" || item.name.toLowerCase() === "index.html") {
               return;
             }
+
             const element = document.createElement("div");
-            element.textContent = item.name;
+            const anchor = document.createElement("a");
+            anchor.textContent = item.name;
+
             if (item.type === "file") {
               element.classList.add("file-link");
-              element.addEventListener("click", function(event) {
+              anchor.addEventListener("click", function(event) {
                 event.preventDefault();
-                const fileExtension = item.name.split('.').pop().toLowerCase();
-
-                if (["jpg", "jpeg", "png", "gif", "mp4"].includes(fileExtension)) {
-                    // Handle image or video differently if needed
-                    console.log("Open image or video:", item.download_url);
-                } else {
-                    window.location.href = item.download_url;
-                }
+                window.open(item.download_url, "_blank");
               });
             } else if (item.type === "dir") {
               element.classList.add("folder-link");
-              element.addEventListener("click", async function() {
+              anchor.addEventListener("click", async function() {
                 const subfolderData = await fetchData(item.url);
                 renderFileExplorer(element, subfolderData);
               });
             }
+            
+            element.appendChild(anchor);
             node.appendChild(element);
           });
         }
