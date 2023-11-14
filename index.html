@@ -27,7 +27,7 @@
 
       .folder-link:hover,
       .file-link:hover {
-        color: #3498db;
+        color: #3498db; 
       }
 
       .folder-link.open {
@@ -49,7 +49,6 @@
 
         function renderFileExplorer(node, data) {
           data.forEach(item => {
-
             if (item.name.toLowerCase() === "readme.md" || item.name.toLowerCase() === "index.html") {
               return;
             }
@@ -66,12 +65,14 @@
               });
             } else if (item.type === "dir") {
               element.classList.add("folder-link");
-              anchor.addEventListener("click", async function() {
+              anchor.addEventListener("click", async function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
                 const isOpen = element.classList.contains("open");
                 
                 if (isOpen) {
                   element.classList.remove("open");
-
                 } else {
                   element.classList.add("open");
                   const subfolderData = await fetchData(item.url);
