@@ -40,6 +40,7 @@
       document.addEventListener("DOMContentLoaded", async function() {
         const fileExplorer = document.getElementById("fileExplorer");
         const githubApiUrl = "https://api.github.com/repos/wolfsyncc/wolfsyncc.github.io/contents/";
+        
         async function fetchData(url) {
           const response = await fetch(url);
           return response.json();
@@ -55,8 +56,16 @@
             element.textContent = item.name;
             if (item.type === "file") {
               element.classList.add("file-link");
-              element.addEventListener("click", function() {
-                window.location.href = item.download_url;
+              element.addEventListener("click", function(event) {
+                event.preventDefault();
+                const fileExtension = item.name.split('.').pop().toLowerCase();
+
+                if (["jpg", "jpeg", "png", "gif", "mp4"].includes(fileExtension)) {
+                    // Handle image or video differently if needed
+                    console.log("Open image or video:", item.download_url);
+                } else {
+                    window.location.href = item.download_url;
+                }
               });
             } else if (item.type === "dir") {
               element.classList.add("folder-link");
@@ -68,6 +77,7 @@
             node.appendChild(element);
           });
         }
+        
         // fetch data from api
         const initialData = await fetchData(githubApiUrl);
         renderFileExplorer(fileExplorer, initialData);
