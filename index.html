@@ -47,6 +47,10 @@
 
         function renderFileExplorer(node, data) {
           data.forEach(item => {
+            // Exclude readme.md and index.html
+            if (item.name.toLowerCase() === "readme.md" || item.name.toLowerCase() === "index.html") {
+              return;
+            }
             const element = document.createElement("div");
             element.textContent = item.name;
             if (item.type === "file") {
