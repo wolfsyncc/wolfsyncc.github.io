@@ -1,2 +1,2 @@
 # wolfsyncc.github.io
-b
+personal website i use to get images, text and more
