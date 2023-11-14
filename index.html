@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wrong place?</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: white;
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 50px;
+        /* Adjust as needed */
+      }
+
+      .folder-link {
+        display: block;
+        margin-bottom: 10px;
+        color: #3498db;
+        cursor: pointer;
+      }
+
+      .file-link {
+        display: block;
+        margin-bottom: 10px;
+        color: #ecf0f1;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>wrong place?</h1>
+    <div id="fileExplorer"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function() {
+        const fileExplorer = document.getElementById("fileExplorer");
+        const githubApiUrl = "https://api.github.com/repos/wolfsyncc/wolfsyncc.github.io/contents/";
+        async function fetchData(url) {
+          const response = await fetch(url);
+          return response.json();
+        }
+
+        function renderFileExplorer(node, data) {
+          data.forEach(item => {
+            const element = document.createElement("div");
+            element.textContent = item.name;
+            if (item.type === "file") {
+              element.classList.add("file-link");
+              element.addEventListener("click", function() {
+                window.location.href = item.download_url;
+              });
+            } else if (item.type === "dir") {
+              element.classList.add("folder-link");
+              element.addEventListener("click", async function() {
+                const subfolderData = await fetchData(item.url);
+                renderFileExplorer(element, subfolderData);
+              });
+            }
+            node.appendChild(element);
+          });
+        }
+        // fetch data from api
+        const initialData = await fetchData(githubApiUrl);
+        renderFileExplorer(fileExplorer, initialData);
+      });
+    </script>
+  </body>
+</html>
