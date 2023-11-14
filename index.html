@@ -21,17 +21,18 @@
         display: block;
         margin-bottom: 10px;
         cursor: pointer;
-        text-decoration: underline;
         color: inherit;
       }
 
       .folder-link:hover,
-      .file-link:hover {
+      .folder-link.open {
         color: #3498db; 
       }
 
-      .folder-link.open {
+      .file-link input[type="checkbox"] {
+        margin-right: 5px;
       }
+
     </style>
   </head>
   <body>
@@ -41,6 +42,7 @@
       document.addEventListener("DOMContentLoaded", async function() {
         const fileExplorer = document.getElementById("fileExplorer");
         const githubApiUrl = "https://api.github.com/repos/wolfsyncc/wolfsyncc.github.io/contents/";
+        let openFolder = null; // Keep track of the currently open folder
         
         async function fetchData(url) {
           const response = await fetch(url);
@@ -58,11 +60,16 @@
             anchor.textContent = item.name;
 
             if (item.type === "file") {
-              element.classList.add("file-link");
-              anchor.addEventListener("click", function(event) {
-                event.preventDefault();
-                window.open(item.download_url, "_blank");
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.value = item.download_url;
+              checkbox.addEventListener("change", function(event) {
+                // Handle file selection logic here
+                console.log("Selected file:", event.target.value);
               });
+
+              element.classList.add("file-link");
+              element.appendChild(checkbox);
             } else if (item.type === "dir") {
               element.classList.add("folder-link");
               anchor.addEventListener("click", async function(event) {
@@ -71,12 +78,17 @@
 
                 const isOpen = element.classList.contains("open");
                 
-                if (isOpen) {
-                  element.classList.remove("open");
-                } else {
+                if (openFolder) {
+                  openFolder.classList.remove("open");
+                }
+
+                if (!isOpen) {
                   element.classList.add("open");
+                  openFolder = element;
                   const subfolderData = await fetchData(item.url);
                   renderFileExplorer(element, subfolderData);
+                } else {
+                  openFolder = null;
                 }
               });
             }
