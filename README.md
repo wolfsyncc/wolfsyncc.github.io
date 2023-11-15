@@ -26,4 +26,10 @@ these are most likely definitely out of date since i cant be bothered to update 
 
 
 ## sounds
-none
+[greenroom.mp3](https://wolfsyncc.github.io/sounds/greenroom.mp3)
+
+[yeat.mp3](https://wolfsyncc.github.io/sounds/yeat.mp3)
+
+[nokia.mp3](https://wolfsyncc.github.io/sounds/nokia.mp3)
+
+[homebrew.mp3](https://wolfsyncc.github.io/sounds/homebrew.mp3)
