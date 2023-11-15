@@ -1,2 +1,29 @@
 # [wolfsyncc.github.io](https://wolfsyncc.github.io)
-personal website i use to get images, text and more
+personal website to store stuff
+## videos
+these are most likely definitely out of date since i cant be bothered to update this so just check the files
+
+[angrykorean.mp4](https://wolfsyncc.github.io/videos/angrykorean.mp4)
+
+[football.mp4](https://wolfsyncc.github.io/videos/football.mp4)
+
+[picklesnap.mp4](https://wolfsyncc.github.io/videos/picklesnap.mp4)
+
+[picklesnaplowerquality.mp4](https://wolfsyncc.github.io/videos/picklesnaplowerquality.mp4)
+
+[shutup.mp4](https://wolfsyncc.github.io/videos/shutup.mp4)
+
+[yeahyeahyeah.mp4](https://wolfsyncc.github.io/videos/yeahyeahyeah.mp4)
+
+## images
+[plankton.png](https://wolfsyncc.github.io/images/plankton.png)
+
+[plankton.png](https://wolfsyncc.github.io/images/plankton.png)
+
+[plankton.png](https://wolfsyncc.github.io/images/plankton.png)
+
+[plankton.png](https://wolfsyncc.github.io/images/plankton.png)
+
+
+## sounds
+none
