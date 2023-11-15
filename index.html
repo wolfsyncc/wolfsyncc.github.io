@@ -9,127 +9,19 @@
         font-family: Arial, sans-serif;
         background-color: black;
         color: white;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
       }
 
       h1 {
-        margin-top: 50px;
-      }
-
-      #fileExplorer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .folder-link,
-      .file-link {
-        display: block;
-        margin: 5px 0;
-        cursor: pointer;
-        color: inherit;
-        transition: background-color 0.3s;
-        width: 50%; /* Adjust the width as needed */
-        text-align: center;
-      }
-
-      .folder-link:hover,
-      .folder-link.open,
-      .file-link:hover {
-        background-color: #555; /* Highlight color */
-      }
-
-      .folder-contents {
-        margin-left: 20px;
-      }
-
-      #searchInput {
-        margin-top: 10px;
-        padding: 8px;
-        background-color: #333;
-        color: white;
-        border: none;
-        border-radius: 15px;
-        width: 30%;
-      }
-
-      /* New styles to hide search bar and stretch buttons */
-      #searchInput {
-        display: none;
-      }
-
-      .file-link:hover {
-        background-color: transparent; /* Remove background color on hover */
+        margin: 0;
       }
     </style>
   </head>
   <body>
     <h1>wrong place?</h1>
-    <!-- Removed search bar -->
-    <div id="fileExplorer"></div>
-    <script>
-      document.addEventListener("DOMContentLoaded", async function () {
-        const fileExplorer = document.getElementById("fileExplorer");
-        const githubApiUrl = "https://api.github.com/repos/wolfsyncc/wolfsyncc.github.io/contents/";
-        let openFolders = new Set();
-
-        async function fetchData(url) {
-          const response = await fetch(url);
-          return response.json();
-        }
-
-        function renderFileExplorer(node, data) {
-          node.innerHTML = "";
-
-          data.forEach(item => {
-            const element = document.createElement("div");
-            const anchor = document.createElement("a");
-
-            if (item.type === "file") {
-              element.classList.add("file-link");
-              anchor.textContent = item.name;
-              anchor.addEventListener("click", function (event) {
-                event.preventDefault();
-                window.open(item.download_url, "_blank");
-              });
-            } else if (item.type === "dir") {
-              element.classList.add("folder-link");
-              anchor.textContent = item.name;
-
-              anchor.addEventListener("click", async function (event) {
-                event.preventDefault();
-
-                const isOpen = openFolders.has(item.name);
-
-                if (isOpen) {
-                  openFolders.delete(item.name);
-                  element.classList.remove("open");
-                  element.querySelector(".folder-contents").innerHTML = "";
-                } else {
-                  openFolders.add(item.name);
-                  element.classList.add("open");
-                  const folderContents = document.createElement("div");
-                  folderContents.classList.add("folder-contents");
-                  element.appendChild(folderContents);
-                  const subfolderData = await fetchData(item.url);
-                  renderFileExplorer(folderContents, subfolderData);
-                }
-              });
-            }
-
-            element.appendChild(anchor);
-            node.appendChild(element);
-          });
-        }
-
-        async function updateFileExplorer() {
-          const data = await fetchData(githubApiUrl);
-          const filteredData = data.filter(item => item.name.toLowerCase() !== "readme.md" && item.name.toLowerCase() !== "index.html");
-          renderFileExplorer(fileExplorer, filteredData);
-        }
-
-        updateFileExplorer();
-      });
-    </script>
   </body>
 </html>
