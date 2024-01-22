@@ -1,7 +1,7 @@
 # [wolfsyncc.github.io](https://wolfsyncc.github.io)
 personal website to store stuff
 ## videos
-these are most likely definitely out of date since i cant be bothered to update this so just check the files
+these are most likely out of date as i cant be bothered to update these, so just check the files
 
 [angrykorean.mp4](https://wolfsyncc.github.io/videos/angrykorean.mp4)
 
